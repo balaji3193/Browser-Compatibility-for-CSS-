@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<div class="ngdialog-message">
+    <h3>Utilities Info</h3>
+    <table>
+        <thead>
+        <tr>
+            <th class="info" >Utility</th>
+            <th class="info" >Enforcer</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="list in inProgress" ng-if="crntsts == 'In-Progress'">
+            <td> {{ list.innovation_name }} </td>
+            <td> {{ list.assigned_to }} </td>
+        </tr>
+        <tr ng-repeat="list in yetToStart" ng-if="crntsts == 'Yet-To-Start'">
+            <td> {{ list.innovation_name }} </td>
+            <td> {{ list.assigned_to }} </td>
+        </tr>
+        <tr ng-repeat="list in completed" ng-if="crntsts == 'Completed'">
+            <td> {{ list.innovation_name }} </td>
+            <td> {{ list.assigned_to }} </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="ngdialog-buttons">
+    <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm('OK')">OK</button>
+</div>

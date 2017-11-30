@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Browser Compatibility</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="assets/css/font-icons.css" type='text/css'>
+    <link rel="stylesheet" href="assets/css/animations.css"/>
+    <link rel="stylesheet" href="assets/css/tablesort.css"/>
+    <link rel="stylesheet" href="assets/css/style.css"/>
+
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <!--UI-Grid css-->
+    <link rel="styleSheet" href="../node_modules/angular-ui-grid/ui-grid.min.css"/>
+    <!-- jQuery library -->
+
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../node_modules/modernizr.js"></script>
+    <script src="../node_modules/FileSaver.js"></script>
+
+    <!-- endbuild -->
+</head>
+<body data-ng-app="app">
+<div ng-controller="IndexController">
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="">CSS Validator For Browser Support</a>
+        </div>
+    </div>
+</nav>
+
+<div class="jumbo">
+    <div class="text-center">
+        <h3>Tool to validate CSS for browser support</h3>
+        <div class="card-separator"></div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div>
+
+        <div class="inline-blk">
+            <div class="card card-green col-md-12">
+                <p class="card-question">Select a File to Validate</p>
+                <div class="card-separator"></div>
+                <span class="btn btn-file">
+                    Browse <input type="file" on-read-file="displayFileContents(contents)">
+                </span>
+                <input class="drpdown" type="text" ng-model="fileName" readonly>
+                <span>
+                    <button class="btn btn-primary" ng-click="validateCSS()" ng-disabled="disableValidate">Validate</button>
+                </span>
+                <div class="card-separator"></div>
+            </div>
+        </div>
+
+        <div class="inline-blk">
+            <div class="card card-blue col-md-12">
+                <p class="card-question">Validation Result</p>
+                <button class="btn btn-warning" ng-click="exportToExcel('cssErr','validateCSS')" ng-disabled="disableExcel">
+                    <span class="glyphicon glyphicon-download-alt"></span>
+                    Export Validation Result
+                </button>
+                <div class="card-separator"></div>
+                <table id="cssErr" class="table table-bordered table-hover table-condensed box-shadow--6dp">
+                    <thead>
+                    <tr class="box-shadow--4dp">
+                        <th class="info" >Line No</th>
+                        <th class="info" >Properties that does not support your Browser </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="fetchlist in cssErrors" ng-if="cssErrors.length != 0 && !keyValue" class="box-shadow--4dp">
+                        <td> {{ fetchlist.line }} </td>
+                        <td> {{ fetchlist.display }}</td>
+                    </tr>
+                    <tr ng-repeat="fetchlist in cssErrors" ng-if="cssErrors.length != 0 && keyValue" class="box-shadow--4dp">
+                        <td> {{ fetchlist.line }} </td>
+                        <td> {{ fetchlist.display }} : {{ fetchlist.value }}</td>
+                    </tr>
+                    <tr ng-if="cssErrors.length == 0">
+                        <td> No values to display </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <iframe id="txtArea1" style="display:none"></iframe>
+                <div class="card-separator"></div>
+            </div>
+        </div>
+
+    </div>
+</div><br>
+
+<footer class="container-fluid text-center">
+    <p>CopyRight @ Accenture-Walmart</p>
+</footer>
+</div>
+
+<!-- ASSETS -->
+<script src="assets/js/angular.min.js"></script>
+<script src="assets/js/angular-animate.min.js"></script>
+<script src="assets/js/angular-cookies.min.js"></script>
+<script src="assets/js/angular-route.min.js"></script>
+<script src="assets/js/angular-touch.min.js"></script>
+<script src="assets/js/moment.min.js"></script>
+<script src="assets/js/angular-moment.min.js"></script>
+<script src="assets/js/angular-truncate.js"></script>
+<script src="assets/js/angular-preload-image.min.js"></script>
+<script type="text/javascript" src="../node_modules/fusioncharts/fusioncharts.js"></script>
+<script type="text/javascript" src="../node_modules/angular-fusioncharts.js"></script>
+<!--typeahead-->
+<!--<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.7.0.js"></script>-->
+<script src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+<!--ui-grid-->
+<script src="../node_modules/angular-ui-grid/ui-grid.min.js"></script>
+<!--Drag n Drop-->
+<script src="../node_modules/angular-drag-and-drop-lists-master/angular-drag-and-drop-lists.js"></script>
+<!--Xeditable-->
+<script src="../node_modules/angular-xeditable/dist/js/xeditable.js"></script>
+<!--Table sort-->
+<script src="../node_modules/angular-tablesort/js/angular-tablesort.js"></script>
+<!--Loading Bar-->
+<link rel='stylesheet' href='../node_modules/angular-loading-bar/src/loading-bar.css' type='text/css' media='all' />
+<script type='text/javascript' src='../node_modules/angular-loading-bar/src/loading-bar.js'></script>
+<!--Table Export-->
+<script type="text/javascript" src="../node_modules/tableExport.js"> </script>
+<script type="text/javascript" src="../node_modules/jquery-base64-master/jquery.base64.js"> </script>
+<!--<script type="text/javascript" src="../node_modules/ngdialog/ng-dialog.js"> </script>-->
+<!-- / -->
+<!-- endbuild -->
+<!-- build:js app.min.js -->
+<!-- MODULES -->
+<script src="app.routes.js"></script>
+<script src="app.config.js"></script>
+<script src="app.core.js"></script>
+<script src="app.services.js"></script>
+<script src="app.js"></script>
+<!-- / -->
+<!-- CONTROLLERS -->
+<script src="index.ctrl.js"></script>
+<!-- / -->
+<!-- / -->
+<!-- DIRECTIVES -->
+<script src="directives/onReadFile.js"></script>
+<!-- / -->
+<!-- inject:js -->
+<!-- endinject -->
+<!-- endbuild -->
+</body>
+</html>
